@@ -28,6 +28,7 @@ int	main()
 	int	*rev_arr = ft_rrange(start, end);
 	int	lenght = 0;
 	int	i = 0;
+ //to test like this you need to add '!' in to array in ft_rrange
 	while(rev_arr[i] != '!')
 	{
 		printf("%d", rev_arr[i]);
