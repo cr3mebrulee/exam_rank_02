@@ -1,4 +1,3 @@
-/*
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -13,37 +12,38 @@ struct s_list
 int compare(int a, int b) {
     return a - b; // Sort in ascending order
 }
-*/
+
 
 t_list	*sort_list(t_list *lst, int (*cmp)(int, int))
 {
 	int	swap;
 	t_list	*tmp;
-	
-	if (!lst)
-			return (0);
+
 	tmp = lst;
 	while(lst->next != NULL)
 	{
-		if (((*cmp)(lst->data, lst->next->data)) > 0)
+		if (((*cmp)(lst->data, lst->next->data)) == 0)
 		{
 			swap = lst->data;
 			lst->data = lst->next->data;
 			lst->next->data = swap;
+			lst = tmp;
 		}
+		else
 			lst = lst->next;
 	}
-	return (tmp);
+	lst = tmp;
+	return (lst);
 }
-/*
+
 int main() {
     // Create a linked list
     t_list *head = malloc(sizeof(t_list));
-    head->data = 0;
+    head->data = 9;
     head->next = malloc(sizeof(t_list));
-    head->next->data = 10;
+    head->next->data = 5;
     head->next->next = malloc(sizeof(t_list));
-    head->next->next->data = 5;
+    head->next->next->data = 7;
     head->next->next->next = NULL;
 
     // Print the original list
@@ -77,4 +77,3 @@ int main() {
 
     return 0;
 }
-*/

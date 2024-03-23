@@ -17,6 +17,7 @@ int	ft_atoi(char *str)
 
 int	is_prime(int num)
 {
+	/*declare variable to check for divisibility of num*/
 	int	nb = 2;
 
 	if (num <= 1)
