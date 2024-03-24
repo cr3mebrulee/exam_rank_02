@@ -8,11 +8,7 @@ int	ft_list_size(t_list *begin_list)
 {
 	if(begin_list == 0)
 		return(0);
-	else
-	{
-		printf("1\n");
-		return (1 + ft_list_size(begin_list->next));
-	}
+	return (1 + ft_list_size(begin_list->next));
 }
 
 int	main()
