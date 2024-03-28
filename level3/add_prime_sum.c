@@ -1,64 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_prime_sum.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angavrel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/03 17:53:51 by angavrel          #+#    #+#             */
+/*   Updated: 2017/02/13 13:14:50 by angavrel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
-int	ft_atoi(char *str)
+void	ft_putchar(char c)
 {
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	while (str[i] != '\0')
-	{
-		res = res * 10 + str[i] - 48;
-		i++;
-	}
-	return (res);
+	write(1, &c, 1);
 }
 
-int	is_prime(int num)
+void	ft_putnbr(int n)
 {
-	/*declare variable to check for divisibility of num*/
-	int	nb = 2;
+	if (n > 9)
+		ft_putnbr(n / 10);
+	ft_putchar(n % 10 + '0');
+}
 
-	if (num <= 1)
-		return (0);
-	while (nb * nb <= num)
-	{
-		if (num % nb == 0)
+int		ft_atoi_nc(char *s)
+{
+	int		r;
+
+	r = 0;
+	while (*s >= '0' && *s <= '9')
+		r = r * 10 + *s++ - '0';
+	return (r);
+}
+
+
+int is_prime(int n)
+{
+	int i;
+
+	i = 2;
+	while (i < n)
+		if (!(n % i++))
 			return (0);
-		nb++;
-	}
 	return (1);
 }
 
-void	put_nbr(int n)
-{
-	char digit;
 
-	if (n >= 10)
-		put_nbr(n / 10);
-	digit = n % 10 + '0';
-	write(1, &digit, 1);
+void	add_prime_sum(int n)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	if (n == 1)
+		count = 1;
+	i = 1;
+	while (++i <= n)
+		if (is_prime(i))
+			count += i;
+	ft_putnbr(count);
 }
 
-int main(int argc, char **argv)
+int		main(int ac, char **av)
 {
-
-	if (argc != 2)
-	{
-		write(1, "0\n", 2);
-		return (0);
-	}
-	int	nbr = ft_atoi(argv[1]);
-	int	sum = 0;
-
-	while (nbr > 0)
-	{
-		if (is_prime(nbr))
-			sum += nbr;
-		nbr--;
-	}
-	put_nbr(sum);
+	if (ac == 2 && ft_atoi_nc(av[1]) > 0)
+		add_prime_sum(ft_atoi_nc(av[1]));
+	else
+		write(1, "0", 1);
 	write(1, "\n", 1);
-	return (0);
+	return (1);
 }
